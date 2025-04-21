@@ -1,43 +1,25 @@
-name: CI/CD Pipeline
+name: Use Shared CI/CD Workflow
 
 on:
   push:
     branches:
-      - main  # Trigger the workflow on pushes to the main branch
+      - main
 
 jobs:
-  ci_cd_pipeline:
-    runs-on: ubuntu-latest
+  call-reusable-ci:
+    uses: devopsprabin/workflows/.github/workflows/workflows/cicd.yml@main
+    with:
+      github_actor: ${{ github.actor }}
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      ssh_enable: "true"
+      ssh_host: ${{ secrets.SSH_HOST_DEV }}
+      ssh_user: ${{ secrets.SSH_USER_DEV }}
+      ssh_port: ${{ secrets.SSH_PORT_DEV }}
+      ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY_DEV }}
+      deploy_folder_path: ${{ vars.DEPLOY_FOLDER_PATH_DEV }}
+      deploy_command: ${{ vars.DEPLOY_COMMAND_DEV }}
+      discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+      discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+      discord_enable: "true"
 
-    steps:
-      # Step 1: Build Docker Image using reusable docker-build.yml workflow
-      - name: Build Docker Image
-        uses: devopsprabin/workflows/.github/workflows/docker-build.yml@main
-        with:
-          git_token: ${{ secrets.GITHUB_TOKEN }}  # Use the GitHub token for authentication
-          custom_tag_name: "v1.0.0"  # Adjust as needed
-          image_name: "your-image-name"  # Adjust as needed
-          subdirectory: ""  # Adjust if your Dockerfile is in a subdirectory
-          dockerfile_name: "Dockerfile"  # Adjust if your Dockerfile has a different name
-          build_args: "_ENV=production"  # Add your build arguments
-
-      # Step 2: Deploy Application using reusable deploy.yml workflow
-      - name: Deploy Application
-        uses: devopsprabin/workflows/.github/workflows/deploy.yml@main
-        with:
-          ssh_enable: "true"
-          ssh_host: ${{ secrets.SSH_HOST_PROD }}  # Use your production secrets
-          ssh_user: ${{ secrets.SSH_USER_PROD }}  # Use your production secrets
-          ssh_port: ${{ secrets.SSH_PORT_PROD }}  # Use your production secrets
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY_PROD }}  # Use your production secrets
-          deploy_folder_path: "/path/to/your/deployment/folder"  # Adjust the path
-          deploy_command: "bash deploy.sh"  # Adjust your deployment command
-
-      # Step 3: Send Discord Notification using reusable discord-notify.yml workflow
-      - name: Send Notification
-        uses: devopsprabin/workflows/.github/workflows/discord-notify.yml@main
-        with:
-          discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}  # Use your Discord webhook ID secret
-          discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}  # Use your Discord webhook token secret
-          discord_enable: "true"
-          message: "Deployment to production environment successful!"  # Customize your message
+      
