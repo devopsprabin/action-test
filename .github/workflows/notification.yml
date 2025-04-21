@@ -1,15 +1,15 @@
-name: Call Central Workflow
+# name: Call Central Workflow
 
-on:
-  push:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
 
-jobs:
-  send-notification:
-    uses: devopsprabin/workflows/.github/workflows/discord-notify.yml@main
-    with:
-      discord_enable: "true"
-      # custom_tag_name: "v1.0.0-dev"  # dynamic tag if needed
-    secrets:
-      discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID_DEV }}
-      discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN_DEV }}
+# jobs:
+#   send-notification:
+#     uses: devopsprabin/workflows/.github/workflows/discord-notify.yml@main
+#     with:
+#       discord_enable: "true"
+#       # custom_tag_name: "v1.0.0-dev"  # dynamic tag if needed
+#     secrets:
+#       discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID_DEV }}
+#       discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN_DEV }}
