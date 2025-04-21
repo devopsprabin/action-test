@@ -21,3 +21,5 @@ jobs:
       discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
       discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
       discord_enable: "true"
+
+      
