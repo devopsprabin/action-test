@@ -16,6 +16,4 @@ jobs:
         _ENV=production  # Optional: Add your environment variables or arguments
         GIT_TOKEN=${{ secrets.GITHUB_TOKEN }}  # Example build argument
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
-      config
-      
+      github_token: ${{ secrets.GITHUB_TOKEN }}      
