@@ -7,7 +7,7 @@ on:
 
 jobs:
   trigger-workflow:
-    uses: devopsprabin/workflows/cicd.yml@main
+    uses: devopsprabin/workflows/.github/workflows/cicd.yml@main
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       github_actor: ${{ github.actor }}
@@ -30,5 +30,3 @@ jobs:
       discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
       discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
       discord_enable: 'true'
-
-      
