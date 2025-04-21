@@ -10,7 +10,7 @@ jobs:
     uses: devopsprabin/workflows/.github/workflows/cicd.yml@main
     with:
       github_actor: ${{ github.actor }}
-      # custom_tag_name: "v1.0.0"
+      custom_tag_name: "v1.0.0"
       # image_name: "ghcr.io/${{ github.repository_owner }}/myapp:latest"
       # subdirectory: "app"
       # dockerfile_name: "Dockerfile"
@@ -33,4 +33,3 @@ jobs:
       discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
       discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
 
-      
