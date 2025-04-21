@@ -8,7 +8,7 @@ on:
 
 jobs:
   call-reusable-ci:
-    uses: devopsprabin/workflows/.github/workflows/ci-cd-workflow.yml@main
+    uses: devopsprabin/workflows/.github/workflows/workflows/cicd.yml@main
     with:
       github_actor: ${{ github.actor }}
       github_token: ${{ secrets.GITHUB_TOKEN }}
