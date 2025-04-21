@@ -16,3 +16,5 @@ jobs:
       ssh_enable: "true"
       deploy_folder_path: ${{ vars.DEPLOY_FOLDER_PATH_DEV }}
       deploy_command: ${{ vars.DEPLOY_COMMAND_DEV }}
+
+      
