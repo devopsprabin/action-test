@@ -14,5 +14,5 @@ jobs:
       # dockerfile_name: "Dockerfile"  # Optional: If your Dockerfile has a different name, specify it here
       build_args: |
         _ENV=production  # Optional: Add your environment variables or arguments
-        GIT_TOKEN=${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token as build argument
+        GIT_TOKEN=${{ inputs.git_token }}  # Pass the received token as build argument
       git_token: ${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token to the reusable workflow
