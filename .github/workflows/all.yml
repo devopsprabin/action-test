@@ -1,4 +1,4 @@
-name: Trigger CI/CD Workflow
+name: Reuse CI/CD Workflow
 
 on:
   push:
@@ -6,36 +6,29 @@ on:
       - main
 
 jobs:
-  trigger-workflow:
+  trigger-ci:
     uses: devopsprabin/workflows/.github/workflows/cicd.yml@main
     with:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
       github_actor: ${{ github.actor }}
-      custom_tag_name: 'latest'
-      image_name: 'my-image-name'
-      subdirectory: 'subfolder'
-      dockerfile_name: 'Dockerfile'
-      build_args: '_ENV=production'
+      custom_tag_name: "v1.0.0"
+      image_name: "ghcr.io/${{ github.repository_owner }}/myapp:latest"
+      subdirectory: "app"
+      dockerfile_name: "Dockerfile"
+      build_args: |
+        _ENV=production
 
-      # Deploy args
-      ssh_enable: 'true'
-      ssh_host: 'dummy'              # Placeholders, real values come from secrets below
-      ssh_user: 'dummy'
-      ssh_port: '22'
-      ssh_private_key: 'dummy'
-      deploy_folder_path: '/path/to/deploy'
-      deploy_command: './deploy.sh'
+      # deploy
+      ssh_enable: "true"
+      ssh_host: "your.server.com"
+      ssh_user: "ubuntu"
+      ssh_port: "22"
+      deploy_folder_path: "/var/www/app"
+      deploy_command: "deploy.sh"
 
-      # Notify args
-      discord_webhook_id: 'dummy'
-      discord_webhook_token: 'dummy'
-      discord_enable: 'true'
-
+      # notify
+      discord_enable: "true"
     secrets:
       git_token: ${{ secrets.GITHUB_TOKEN }}
-      ssh_host: ${{ secrets.SSH_HOST }}
-      ssh_user: ${{ secrets.SSH_USER }}
-      ssh_port: ${{ secrets.SSH_PORT }}
       ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
       discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
       discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
