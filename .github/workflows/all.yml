@@ -7,7 +7,7 @@ on:
 
 jobs:
   trigger-workflow:
-    uses: devopsprabin/workflows/.github/workflows/ci-cd-workflow.yml@main
+    uses: devopsprabin/workflows/cicd.yml@main
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       github_actor: ${{ github.actor }}
