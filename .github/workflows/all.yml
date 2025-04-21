@@ -18,7 +18,7 @@ jobs:
 
   deploy:
     needs: build
-    uses: devopsprabin/workflows/.github/workflows/deploy.yml@main
+    uses: devopsprabin/workflows/.github/workflows/ssh-deploy.yml@main
     with:
       ssh_enable: ${{ inputs.ssh_enable }}
       ssh_host: ${{ inputs.ssh_host }}
