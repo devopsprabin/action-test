@@ -3,7 +3,7 @@ on:
       branches: [main]
 jobs:
     build-push-deploy-docker-image:
-        uses: devopsprabin/workflows/.github/workflows/ocker-build.yml@main
+        uses: devopsprabin/workflows/.github/workflows/docker-build.yml@main
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             github_actor: ${{ github.actor }}
