@@ -16,6 +16,6 @@ jobs:
       # dockerfile_name: "Dockerfile"  # Optional: If your Dockerfile has a different name, specify it here
       build_args: |
         _ENV=production  # Optional: Add your environment variables or arguments
-        GIT_TOKEN=${{ secrets.GITHUB_TOKEN }}  # Example build argument
+        GIT_TOKEN=${{ secrets.git_token }}  # Example build argument
  
 
