@@ -18,14 +18,14 @@ jobs:
         _ENV=production
       ssh_enable: 'true'
       discord_enable: "true"
+      deploy_folder_path: ${{ vars.DEPLOY_FOLDER_PATH_DEV }}
+      deploy_command: ${{ vars.DEPLOY_COMMAND_DEV }}
     secrets:
       git_token: ${{ secrets.GITHUB_TOKEN }}
       ssh_host: ${{ secrets.SSH_HOST_DEV }}
       ssh_user: ${{ secrets.SSH_USER_DEV }}
       ssh_port: ${{ secrets.SSH_PORT_DEV }}
       ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY_DEV }}
-      deploy_folder_path: ${{ vars.DEPLOY_FOLDER_PATH_DEV }}
-      deploy_command: ${{ vars.DEPLOY_COMMAND_DEV }}
       discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID_DEV }}
       discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN_DEV }}
 
