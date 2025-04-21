@@ -1,0 +1,19 @@
+name: Call Docker Build
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    uses: devopsprabin/workflows/.github/workflows/docker-build.yml@main
+    with:
+      # custom_tag_name: "v1.0.0"  # The tag to use for the image
+      # image_name: "my-custom-image"  # Optional: You can specify a custom image name, otherwise it defaults to the repo name
+      # subdirectory: ""  # Optional: Path to subdirectory if the Dockerfile is not in the root
+      # dockerfile_name: "Dockerfile"  # Optional: If your Dockerfile has a different name, specify it here
+      build_args: |
+        _ENV=production  # Optional: Add your environment variables or arguments
+        GIT_TOKEN=${{ secrets.GITHUB_TOKEN }}  # Example build argument
+    secrets:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
