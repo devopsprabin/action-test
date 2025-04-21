@@ -1,3 +1,4 @@
+
 name: Call Docker Build
 
 on:
@@ -13,7 +14,9 @@ jobs:
       # subdirectory: ""  # Optional: Path to subdirectory if the Dockerfile is not in the root
       dockerfile_name: "Dockerfile"  # Optional: If your Dockerfile has a different name, specify it here
       # github_token: ${{ secrets.GITHUB_TOKEN }}
-
+      build_args: |
+        _ENV=production  # Optional: Add your environment variables or arguments
+        GIT_TOKEN=${{ inputs.git_token }}  # Pass the received token as build argument
     secrets:
       git_token: ${{ secrets.GITHUB_TOKEN }}
 
