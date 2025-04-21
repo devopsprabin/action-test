@@ -16,6 +16,3 @@ jobs:
         _ENV=production  # Optional: Add your environment variables or arguments
         GIT_TOKEN=${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token as build argument
       git_token: ${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token to the reusable workflow
-
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Pass secrets here for use in the reusable workflow
