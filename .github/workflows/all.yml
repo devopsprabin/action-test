@@ -1,4 +1,3 @@
-# .github/workflows/deploy.yml in ANOTHER repo
 name: Use Shared CI/CD Workflow
 
 on:
