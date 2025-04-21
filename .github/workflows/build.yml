@@ -12,7 +12,4 @@ jobs:
       # image_name: "my-custom-image"  # Optional: You can specify a custom image name, otherwise it defaults to the repo name
       # subdirectory: ""  # Optional: Path to subdirectory if the Dockerfile is not in the root
       # dockerfile_name: "Dockerfile"  # Optional: If your Dockerfile has a different name, specify it here
-      build_args: |
-        _ENV=production  # Optional: Add your environment variables or arguments
-        GIT_TOKEN=${{ inputs.git_token }}  # Pass the received token as build argument
       git_token: ${{ secrets.GITHUB_TOKEN }}  # Pass the GitHub token to the reusable workflow
