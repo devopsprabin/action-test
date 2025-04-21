@@ -16,21 +16,17 @@ jobs:
       # dockerfile_name: "Dockerfile"
       build_args: |
         _ENV=production
-
-      # deploy
-      ssh_enable: "true"
-      ssh_host: "your.server.com"
-      ssh_user: "ubuntu"
-      ssh_port: "22"
-      deploy_folder_path: "/var/www/app"
-      deploy_command: "deploy.sh"
-
-      # notify
+      ssh_enable: 'true'
       discord_enable: "true"
     secrets:
       git_token: ${{ secrets.GITHUB_TOKEN }}
-      ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-      discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
-      discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
-      
+      ssh_host: ${{ secrets.SSH_HOST_DEV }}
+      ssh_user: ${{ secrets.SSH_USER_DEV }}
+      ssh_port: ${{ secrets.SSH_PORT_DEV }}
+      ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY_DEV }}
+      deploy_folder_path: ${{ vars.DEPLOY_FOLDER_PATH_DEV }}
+      deploy_command: ${{ vars.DEPLOY_COMMAND_DEV }}
+      discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID_DEV }}
+      discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN_DEV }}
+
 
