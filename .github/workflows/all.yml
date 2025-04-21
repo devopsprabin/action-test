@@ -36,3 +36,4 @@ jobs:
       discord_webhook_token: ${{ inputs.discord_webhook_token }}
       discord_enable: ${{ inputs.discord_enable }}
   
+      
