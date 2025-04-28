@@ -10,14 +10,14 @@ jobs:
     uses: devopsprabin/workflows/.github/workflows/cicd.yml@main
     with:
       github_actor: ${{ github.actor }}
-      custom_tag_name: "v1.0.0"
+      # custom_tag_name: "v1.0.0"
       # image_name: "ghcr.io/${{ github.repository_owner }}/myapp:latest"
       # subdirectory: "app"
       # dockerfile_name: "Dockerfile"
       build_args: |
         _ENV=production
-      ssh_enable: 'true'
-      discord_enable: "true"
+      # ssh_enable: 'true'
+      # discord_enable: "true"
       deploy_folder_path: ${{ vars.DEPLOY_FOLDER_PATH_DEV }}
       deploy_command: ${{ vars.DEPLOY_COMMAND_DEV }}
     secrets:
