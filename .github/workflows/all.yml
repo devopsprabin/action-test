@@ -7,12 +7,6 @@ on:
     tags:
       - 'v*'
 jobs:
-  debug-github-context:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print GitHub Context
-        run: |
-          echo '${{ toJson(github) }}'
   trigger-ci:
     name: ${{ github.event.repository.name }}
     uses: devopsprabin/workflows/.github/workflows/cicd.yml@main
@@ -28,6 +22,7 @@ jobs:
       # discord_enable: "true"
       deploy_folder_path: ${{ vars.DEPLOY_FOLDER_PATH_DEV }}
       deploy_command: ${{ vars.DEPLOY_COMMAND_DEV }}
+      
     secrets:
       git_token: ${{ secrets.GITHUB_TOKEN }}
       ssh_host: ${{ secrets.SSH_HOST_DEV }}
