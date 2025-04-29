@@ -6,6 +6,12 @@ on:
       - main
 
 jobs:
+  debug-github-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print GitHub Context
+        run: |
+          echo '${{ toJson(github) }}'
   trigger-ci:
     name: ${{ github.event.repository.name }}
     uses: devopsprabin/workflows/.github/workflows/cicd.yml@main
