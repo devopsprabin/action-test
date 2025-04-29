@@ -32,5 +32,3 @@ jobs:
       discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID_DEV }}
       discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN_DEV }}
       
-
-      
