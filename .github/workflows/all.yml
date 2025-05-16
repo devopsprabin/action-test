@@ -17,10 +17,10 @@ jobs:
         run: |
           if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
             echo "env=PROD" >> $GITHUB_OUTPUT
-          elif [[ "${GITHUB_REF_TYPE}" == "branch" ]]; then
+          elif [[ "${GITHUB_REF_TYPE}" == "branch" && "${GITHUB_REF#refs/heads/}" == "dev" ]]; then
             echo "env=DEV" >> $GITHUB_OUTPUT
           else
-            echo "env=custom" >> $GITHUB_OUTPUT
+            echo "env=DEMO" >> $GITHUB_OUTPUT
           fi
 
   trigger-ci:
