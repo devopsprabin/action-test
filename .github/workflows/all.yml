@@ -9,11 +9,12 @@ on:
 
   # workflow_dispatch:
 
-env:
-  CUSTOM_ENVIRONMENT: ${{ github.ref_type == 'tag' ? 'prod' : (github.ref_type == 'branch' ? 'dev' : 'custom') }}
+
 jobs:
   trigger-ci:
     name: ${{ github.event.repository.name }}
+    env:
+      CUSTOM_ENVIRONMENT: ${{ github.ref_type == 'tag' ? 'prod' : (github.ref_type == 'branch' ? 'dev' : 'custom') }}
     uses: devopsprabin/workflows/.github/workflows/deploy.yml@main
     with:
       github_actor: ${{ github.actor }}
