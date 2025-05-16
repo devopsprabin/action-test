@@ -8,14 +8,19 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
   # workflow_dispatch:
+
+env:
+  CUSTOM_ENVIRONMENT: ${{ github.ref_type == 'tag' ? 'prod' : (github.ref_type == 'branch' ? 'dev' : 'custom') }}
 jobs:
   trigger-ci:
     name: ${{ github.event.repository.name }}
     uses: devopsprabin/workflows/.github/workflows/deploy.yml@main
     with:
       github_actor: ${{ github.actor }}
-      deploy_folder_path: ${{ vars.DEPLOY_FOLDER_PATH_DEV }}
-      deploy_command: ${{ vars.DEPLOY_COMMAND_DEV }}
+      # deploy_folder_path: ${{ vars.DEPLOY_FOLDER_PATH_DEV }}
+      deploy_folder_path: ${{ vars[format('DEPLOY_FOLDER_PATH_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
+      # deploy_command: ${{ vars.DEPLOY_COMMAND_DEV }}
+      deploy_command: ${{ vars[format('DEPLOY_COMMAND_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
       # custom_tag_name: "dev"
       # image_name: "ghcr.io/${{ github.repository_owner }}/myapp:latest"
       # subdirectory: "app"
@@ -26,9 +31,9 @@ jobs:
       # discord_enable: "true"
     secrets:
       git_token: ${{ secrets.GITHUB_TOKEN }}
-      ssh_host: ${{ secrets.SSH_HOST_DEV }}
-      ssh_user: ${{ secrets.SSH_USER_DEV }}
-      ssh_port: ${{ secrets.SSH_PORT_DEV }}
-      ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY_DEV }}
-      discord_webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID_DEV }}
-      discord_webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN_DEV }}
+      ssh_host: ${{ secrets[format('SSH_HOST_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
+      ssh_user: ${{ secrets[format('SSH_USER_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
+      ssh_port: ${{ secrets[format('SSH_PORT_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
+      ssh_private_key: ${{ secrets[format('SSH_PRIVATE_KEY_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
+      discord_webhook_id: ${{ secrets[format('DISCORD_WEBHOOK_ID_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
+      discord_webhook_token: ${{ secrets[format('DISCORD_WEBHOOK_TOKEN_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
