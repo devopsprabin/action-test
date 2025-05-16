@@ -7,34 +7,34 @@ on:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
-  # workflow_dispatch:
-
-
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      custom_env: ${{ steps.setenv.outputs.env }}
+    steps:
+      - id: setenv
+        run: |
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            echo "env=prod" >> $GITHUB_OUTPUT
+          elif [[ "${GITHUB_REF_TYPE}" == "branch" ]]; then
+            echo "env=dev" >> $GITHUB_OUTPUT
+          else
+            echo "env=custom" >> $GITHUB_OUTPUT
+          fi
+
   trigger-ci:
-    name: ${{ github.event.repository.name }}
-    env:
-      CUSTOM_ENVIRONMENT: ${{ github.ref_type == 'tag' && 'prod' || github.ref_type == 'branch' && 'dev' || 'custom' }}
+    needs: prepare
     uses: devopsprabin/workflows/.github/workflows/deploy.yml@main
     with:
       github_actor: ${{ github.actor }}
-      # deploy_folder_path: ${{ vars.DEPLOY_FOLDER_PATH_DEV }}
-      deploy_folder_path: ${{ vars[format('DEPLOY_FOLDER_PATH_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
-      # deploy_command: ${{ vars.DEPLOY_COMMAND_DEV }}
-      deploy_command: ${{ vars[format('DEPLOY_COMMAND_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
-      # custom_tag_name: "dev"
-      # image_name: "ghcr.io/${{ github.repository_owner }}/myapp:latest"
-      # subdirectory: "app"
-      # dockerfile_name: "Dockerfile"
-      # build_args: |
-      #   _ENV=production
-      # ssh_enable: 'true'
-      # discord_enable: "true"
+      deploy_folder_path: ${{ vars[format('DEPLOY_FOLDER_PATH_{0}', needs.prepare.outputs.custom_env | upper)] }}
+      deploy_command: ${{ vars[format('DEPLOY_COMMAND_{0}', needs.prepare.outputs.custom_env | upper)] }}
     secrets:
       git_token: ${{ secrets.GITHUB_TOKEN }}
-      ssh_host: ${{ secrets[format('SSH_HOST_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
-      ssh_user: ${{ secrets[format('SSH_USER_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
-      ssh_port: ${{ secrets[format('SSH_PORT_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
-      ssh_private_key: ${{ secrets[format('SSH_PRIVATE_KEY_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
-      discord_webhook_id: ${{ secrets[format('DISCORD_WEBHOOK_ID_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
-      discord_webhook_token: ${{ secrets[format('DISCORD_WEBHOOK_TOKEN_{0}', env.CUSTOM_ENVIRONMENT | upper)] }}
+      ssh_host: ${{ secrets[format('SSH_HOST_{0}', needs.prepare.outputs.custom_env | upper)] }}
+      ssh_user: ${{ secrets[format('SSH_USER_{0}', needs.prepare.outputs.custom_env | upper)] }}
+      ssh_port: ${{ secrets[format('SSH_PORT_{0}', needs.prepare.outputs.custom_env | upper)] }}
+      ssh_private_key: ${{ secrets[format('SSH_PRIVATE_KEY_{0}', needs.prepare.outputs.custom_env | upper)] }}
+      discord_webhook_id: ${{ secrets[format('DISCORD_WEBHOOK_ID_{0}', needs.prepare.outputs.custom_env | upper)] }}
+      discord_webhook_token: ${{ secrets[format('DISCORD_WEBHOOK_TOKEN_{0}', needs.prepare.outputs.custom_env | upper)] }}
